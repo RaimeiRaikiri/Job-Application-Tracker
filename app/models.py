@@ -1,6 +1,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, Date, Boolean, DateTime, Enum
 from sqlalchemy.orm import relationship
+from app.enums import ApplicationStatus, InterviewStage
 
 Base = declarative_base()
 
@@ -22,7 +23,7 @@ class Application(Base):
     user_id = Column(Integer, ForeignKey("user.id"))
     job_id = Column(Integer, ForeignKey("job.id"))
     date_applied = Column(Date)
-    status = Column(String)
+    status = Column(Enum(ApplicationStatus))
     
     user = relationship("User", back_populates="applications")
     job = relationship("Job", back_populates="applications")
@@ -41,7 +42,7 @@ class Company(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
     website = Column(String)
-    industry = Column(String) 
+    industry = Column(String) # Potential Enum
     location = Column(String) # Potentially many locations
     
     jobs = relationship("Job", back_populates="company")
@@ -76,7 +77,7 @@ class Document(Base):
     application_id = Column(Integer, ForeignKey("application.id"))
     filename = Column(String)
     storage_path = Column(String)
-    uploaded_at = Column()
+    uploaded_at = Column(DateTime)
     application = relationship("Application", back_populates="doucments")
 
 
@@ -98,7 +99,7 @@ class Interview(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     application_id = Column(Integer, ForeignKey("application.id"))
-    stage = Column(String)
+    stage = Column(Enum(InterviewStage))
     scheduled_at = Column(DateTime)
     result = Column(String)
     
@@ -109,8 +110,8 @@ class Application_History(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     application_id = Column(Integer, ForeignKey("application.id"))
-    old_status = Column(String)
-    new_status = Column(String)
+    old_status = Column(Enum(ApplicationStatus))
+    new_status = Column(Enum(ApplicationStatus))
     changed_at = Column(Date)
     
     application = relationship("Application", back_populates="history")
