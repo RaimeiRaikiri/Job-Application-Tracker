@@ -40,3 +40,8 @@ def create_user(new_user: UserCreate, db: db_dependency):
     response = UserResponse.model_validate(user)
     
     return response
+
+@router.get("/me", response_model=CurrentUser)
+def get_user_details(current_user: current_user):
+    return current_user
+    
