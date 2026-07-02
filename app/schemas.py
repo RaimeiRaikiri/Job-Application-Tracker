@@ -1,11 +1,39 @@
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from app.enums import ApplicationStatus
+from datetime import date
+from app.enums import ApplicationStatus
 
+class CompanyCreate(BaseModel):
+    name: str
+    website: str
+    industry: str
+    location: str
+
+class JobCreate(BaseModel):
+    title: str
+    salary: int
+    remote: str
+    description: str
+    
 class ApplicationBase(BaseModel):
-    pass
+    date_applied: date
+    status: ApplicationStatus
 
-class ApplicationCreate(BaseModel):
-    pass
+class ApplicationCreate(ApplicationBase):
+    company_name: str
+    company_website: str
+    company_industry: str
+    company_location: str
+    
+    job_title: str
+    job_salary: int
+    job_remote: str # Enum potential
+    job_description: str
+    
+class Application(ApplicationBase):
+    user_id: int
+    job_id: int
+    
 class Token(BaseModel):
     access_token: str
     token_type: str
