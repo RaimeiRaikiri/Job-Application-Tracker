@@ -8,7 +8,7 @@ class ApplicationBase(BaseModel):
     date_applied: date
     status: ApplicationStatus
 
-class ApplicationCreate(ApplicationBase):
+class ApplicationCreate(BaseModel):
     company_name: str
     company_website: str
     company_industry: str
@@ -22,6 +22,8 @@ class ApplicationCreate(ApplicationBase):
 class Application(ApplicationBase):
     user_id: int
     job_id: int
+    
+    model_config = ConfigDict(from_attributes=True)
     
 class Token(BaseModel):
     access_token: str
