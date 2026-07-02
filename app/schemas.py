@@ -16,7 +16,7 @@ class ApplicationCreate(BaseModel):
     
     job_title: str
     job_salary: int
-    job_remote: str # Enum potential
+    job_remote: bool # Enum potential
     job_description: str
     
 class Application(ApplicationBase):
