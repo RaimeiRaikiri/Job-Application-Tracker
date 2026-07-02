@@ -40,7 +40,7 @@ class Company(Base):
     __tablename__ = "company"
     
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
+    name = Column(String, unique=True)
     website = Column(String)
     industry = Column(String) # Potential Enum
     location = Column(String) # Potentially many locations
