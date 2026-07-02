@@ -21,13 +21,17 @@ def create_user(new_user: UserCreate, db: db_dependency):
         # Raise exception for existing user already
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=""
+            detail="Unable to create account"
         )
     
     existing_email = db.query(User).filter(User.email == new_user.email).first()
     
     if existing_email:
-        return False 
+        # Raise exception for existing email already
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Unable to create account"
+        )
     
     hashed_password = hash_password(new_user.password)
     
