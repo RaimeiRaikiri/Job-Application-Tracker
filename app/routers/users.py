@@ -15,7 +15,7 @@ current_user = Annotated[CurrentUser, Depends(get_current_user)]
 def create_user(new_user: UserCreate, db: db_dependency):
 
     # Check if user exists first
-    existing_username = db.query(User).filter_by(User.username == new_user.username).first()
+    existing_username = db.query(User).filter(User.username == new_user.username).first()
     
     if existing_username:
         # Raise exception for existing user already
@@ -24,7 +24,7 @@ def create_user(new_user: UserCreate, db: db_dependency):
             detail=""
         )
     
-    existing_email = db.query(User).filter_by(User.email == new_user.email).first()
+    existing_email = db.query(User).filter(User.email == new_user.email).first()
     
     if existing_email:
         return False 
@@ -36,7 +36,7 @@ def create_user(new_user: UserCreate, db: db_dependency):
     db.add(User(**new_user.model_dump()))
     db.commit()
     
-    user = db.query(User).filter_by(User.username == new_user.username).first()
+    user = db.query(User).filter(User.username == new_user.username).first()
     response = UserResponse.model_validate(user)
     
     return response
