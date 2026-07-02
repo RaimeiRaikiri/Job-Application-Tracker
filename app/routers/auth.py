@@ -83,7 +83,7 @@ async def get_current_user(db: db_dependency, token: str = Depends(oauth2_contex
         raise credential_exception
     
     
-    return CurrentUser(username=user.username)
+    return CurrentUser(id=user.id, username=user.username)
 
     
 @router.post("/token", response_model=Token)

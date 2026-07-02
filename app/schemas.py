@@ -3,18 +3,7 @@ from app.enums import ApplicationStatus
 from datetime import date
 from app.enums import ApplicationStatus
 
-class CompanyCreate(BaseModel):
-    name: str
-    website: str
-    industry: str
-    location: str
 
-class JobCreate(BaseModel):
-    title: str
-    salary: int
-    remote: str
-    description: str
-    
 class ApplicationBase(BaseModel):
     date_applied: date
     status: ApplicationStatus
@@ -39,7 +28,8 @@ class Token(BaseModel):
     token_type: str
     
 class CurrentUser(BaseModel):
-    username: str 
+    id: int
+    username: str
     
 class UserBase(BaseModel):
     username: str = Field(min_length=3, max_length=30)
