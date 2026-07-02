@@ -78,7 +78,7 @@ class Document(Base):
     filename = Column(String)
     storage_path = Column(String)
     uploaded_at = Column(DateTime)
-    application = relationship("Application", back_populates="doucments")
+    application = relationship("Application", back_populates="documents")
 
 
 class Job(Base):
