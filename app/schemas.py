@@ -19,11 +19,18 @@ class ApplicationCreate(BaseModel):
     job_remote: bool # Enum potential
     job_description: str
     
+class ApplicationUpdate(BaseModel):
+    status: ApplicationStatus
+    
 class Application(ApplicationBase):
     user_id: int
     job_id: int
     
     model_config = ConfigDict(from_attributes=True)
+    
+class ApplicationResponse(Application):
+    id: int
+
     
 class Token(BaseModel):
     access_token: str
