@@ -1,15 +1,15 @@
 from enum import Enum
 
 class ApplicationStatus(str, Enum):
-    APPLIED = "Applied"
-    ASSESSMENT = "Assessment"
-    INTERVIEW = "Interview"
-    REJECTED = "Rejected"
-    WITHDRAWN = "Withdrawn"
+    APPLIED = "applied"
+    ASSESSMENT = "assessment"
+    INTERVIEW = "interview"
+    REJECTED = "rejected"
+    WITHDRAWN = "withdrawn"
     
 class InterviewStage(str, Enum):
-    PHONE_SCREEN = "Phone Screen"
-    TECHNICAL = "Technical Interview"
-    FINAL = "Offer"
+    PHONE_SCREEN = "phone_screen"
+    TECHNICAL = "technical_interview"
+    FINAL = "offer"
     
 # Could use Enums for job title
