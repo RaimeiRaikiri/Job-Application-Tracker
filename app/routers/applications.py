@@ -6,7 +6,7 @@ from app.database import get_db
 from app.schemas import CurrentUser, ApplicationCreate, Application, ApplicationResponse, ApplicationUpdate
 from app.routers.auth import get_current_user
 from app import models
-from datetime import date
+from datetime import date, datetime
 from app.enums import ApplicationStatus
 
 
@@ -115,10 +115,21 @@ def update_application(application_id, updated_application: ApplicationUpdate, d
         )
 
     if updated_application.status:
+        history = models.Application_History(
+            application_id=application.id,
+            old_status=application.status,
+            new_status=updated_application.status.lower(),
+            changed_at=datetime.now()
+        )
+        
         application.status = updated_application.status.lower()
+        
         
     db.commit()
     db.refresh(application)
+    
+    db.add(history)
+    db.commit()
 
     return ApplicationResponse.model_validate(application)
     
