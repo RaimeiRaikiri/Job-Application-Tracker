@@ -112,6 +112,6 @@ class Application_History(Base):
     application_id = Column(Integer, ForeignKey("application.id"))
     old_status = Column(Enum(ApplicationStatus))
     new_status = Column(Enum(ApplicationStatus))
-    changed_at = Column(Date)
+    changed_at = Column(DateTime)
     
     application = relationship("Application", back_populates="history")
