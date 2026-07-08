@@ -3,7 +3,22 @@ from app.enums import ApplicationStatus
 from datetime import date
 from app.enums import ApplicationStatus
 
+class CompanyCreate(BaseModel):
+    name: str
+    website: str
+    industry: str
+    location: str
+    
+class CompanyResponse(CompanyCreate):
+    id: int
+    
+    model_config = ConfigDict(from_attributes=True)
 
+class CompanyUpdate(BaseModel):
+    website: str
+    industry: str
+    location: str
+    
 class ApplicationBase(BaseModel):
     date_applied: date
     status: ApplicationStatus
@@ -30,7 +45,7 @@ class Application(ApplicationBase):
     
 class ApplicationResponse(Application):
     id: int
-
+    
     
 class Token(BaseModel):
     access_token: str
